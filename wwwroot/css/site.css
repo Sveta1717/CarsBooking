@@ -1,0 +1,46 @@
+.container-fluid {
+    background-color:honeydew;  
+}
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+    position: relative;
+    min-height: 100%;   
+}
+
+body {
+    margin-bottom: 60px;
+    background-size: 100%;
+    background-color: rgba(245, 245, 220, 0.8);
+    background-image: url('/image/mini-cooper.jpg');
+    background-repeat: no-repeat;
+}
+ body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(245, 245, 220, 0.5); 
+    z-index: -1;
+    }
+.footer {
+    background-color: honeydew;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 0%;
+    padding: 0px 0;
+    text-align: center;
+}
+   

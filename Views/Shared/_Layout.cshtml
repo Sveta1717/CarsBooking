@@ -1,0 +1,136 @@
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CarBooking</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CarBooking.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="/uploads/Logo.png" alt="CarBooking Logo" width="100" height="50"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">ГОЛОВНА</a>
+                        </li>   
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Index">Автопарк</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="RentTerms">Умови оренди</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://bank.gov.ua/ua/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi"
+                               class="nav-link text-dark">
+                                <span class="flag-icon flag-icon-ua"></span> Допомогти ЗСУ
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    @if (Context.User.Identity?.IsAuthenticated == true)
+                    {
+                        String? avatar = Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData)?.Value;
+                        <img src="/uploads/@avatar" alt="Ava" class="rounded-circle" style="max-width: 60px" />
+
+                        <form asp-controller="User" asp-action="Exit" method="post">
+                            <button type="submit" class="btn btn-light">
+                                <img src="/image/Exit2.png" alt="Вихід" style="max-width: 40px">
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-controller="User" asp-action="Register" title="Реєстрація"><i class="fas fa-user-plus text-warning" style="font-size:1.5rem;"></i></a>
+
+                        <i class="fas fa-user text-warning mx-4"
+                        data-bs-toggle="modal"
+                        data-bs-target="#signinModal"
+                        role="button"
+                        title="Вхід"
+                        style="font-size:1.5rem;"></i>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted bg-light">
+
+        <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="signinModalLabel">Вхід</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">                           
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"
+                                      id="signin-login-addon"><i class="bi-person" style="font-size:1.1rem"></i></span>
+                                <input type="text" class="form-control"
+                                       id="signin-login" name="signin-login"
+                                       placeholder="Введить логін"
+                                       aria-describedby="signin-login-addon">
+                            </div>
+                           
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"
+                                      id="signin-password-addon"><i class="bi-lock" style="font-size:1.1rem"></i></span>
+                                <input type="password" class="form-control"
+                                       id="signin-password" name="signin-password"
+                                       placeholder="Введить пароль"
+                                       aria-describedby="signin-password-addon">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                        <button type="button" class="btn btn-primary" id="signin-button">Вхід</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <p>&copy; 2023 - CarBooking - <a href="#">Privacy Policy</a></p>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="/Home/AboutUs">Про нас</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="/Home/Privacy">Контакти</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+   
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+

@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "PersonalArea";
+}
+
+<div>
+    <h1 class="display-4">Особистий кабінет</h1>
+    <ul>
+        <li>
+            <p class="expandable-text" onclick="toggleText(1)" style="cursor: pointer">Перевірити замовлення</p>
+            <p class="hidden-text" id="hiddenText1" style="display:none">
+                      Введіть номер замовлення (вказаний в E-mail та SMS про прийняття замовлення)                
+                <input type="text" class="form-control custom-input" id="number" placeholder="Номер замовлення" style="max-width: 200px">
+                <button type="submit" class="btn btn-secondary">Перевірити</button>
+            </p>            
+        </li>
+        <li>
+            <p class="expandable-text" onclick="toggleText(2)" style="cursor: pointer">Мій бонусний рахунок</p>
+            <p class="hidden-text" id="hiddenText2" style="display:none">
+                Доступні бонуси:   
+            </p>
+        </li>
+        <li>
+            <p class="expandable-text" onclick="toggleText(4)" style="cursor: pointer">Листування</p>
+            <p class="hidden-text" id="hiddenText4" style="display:none">
+                <a href="mailto:spu121ajur@gmail.com?subject=Заголовок&body=сообщение">Відправити листа</a>
+            </p>
+        </li>       
+    </ul>
+</div>
+
+
+<script>
+    function toggleText(index) {
+        var hiddenText = document.getElementById("hiddenText" + index);
+        if (hiddenText.style.display === "none") {
+            hiddenText.style.display = "block";
+        } else {
+            hiddenText.style.display = "none";
+        }
+    }
+</script>

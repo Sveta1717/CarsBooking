@@ -1,0 +1,18 @@
+﻿@model CarBooking.Models.Car.BookingIndexViewModel
+
+@{
+    ViewData["Title"] = "Car Page";
+}
+
+<body class="car" style="background-image:none">
+    <div class="text-center">
+        <h1 class="display-4">Обирайте автомобіль</h1>
+    </div>
+</body>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var car in Model.Cars)
+    {
+        @Html.DisplayFor(m => car, "Car")
+    }
+</div>

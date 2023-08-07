@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "RentTerms";
+}
+
+<div>    
+    <ul>
+        <li>
+            <p class="expandable-text" onclick="toggleText(1)" style="cursor: pointer; color:blueviolet; font-size: 30px;">Вікові обмеження</p>
+            <p class="hidden-text" id="hiddenText1" style="display:none; color:blue; font-size: 20px;">
+                      - клієнт має бути старше 23 років;
+                <br />- водійський стаж має становити мінімум 2 роки.
+            </p>
+        </li>
+        <li>
+            <p class="expandable-text" onclick="toggleText(2)" style="cursor: pointer; color:blueviolet; font-size: 30px;">Способи оплати</p>
+            <p class="hidden-text" id="hiddenText2" style="display:none; color:blue; font-size: 20px;">
+                      - платіжні картки Visa/Mastercard;
+                <br />- безготівковий розрахунок із ПДВ;
+                <br />- Apple Pay та Google Pay.
+            </p>
+        </li>
+        <li>
+            <p class="expandable-text" onclick="toggleText(3)" style="cursor: pointer; color:blueviolet; font-size: 30px;">Застава</p>
+            <p class="hidden-text" id="hiddenText3" style="display:none; color:blue; font-size: 20px;">
+                       Застава на час користування залежить від класу авто
+                <br />та від умов страхування. Сума від 7000 грн.
+            </p>
+        </li>
+        <li>
+            <p class="expandable-text" onclick="toggleText(4)" style="cursor: pointer; color:blueviolet; font-size: 30px;">Випадки пошкоджень</p>
+            <p class="hidden-text" id="hiddenText4" style="display:none; color:blue; font-size: 20px;">
+                Для того, щоб у разі ДТП обмежити свою відповідальність розміром
+                <br />депозиту та не оплачувати повний ремонт автомобіля, необхідно
+                <br />виконати одну просту, але важливу умову – необхідно зафіксувати
+                <br />страховий випадок (дзвінок до поліції, прокатної компанії, страхової
+                <br />компанії). Якщо ж страховий випадок не оформлений, клієнт несе повну
+                <br />матеріальну відповідальність за пошкоджений автомобіль.
+               
+            </p>
+        </li>
+        <li>
+            <p class="expandable-text" onclick="toggleText(5)" style="cursor: pointer; color:blueviolet; font-size: 30px;">Водій напрокат</p>
+            <p class="hidden-text" id="hiddenText5" style="display:none; color:blue; font-size: 20px;">
+                За необхідністю, разом з орендою автомобіля Ви можете скористатися послугами водія 
+                <br />зі знанням англійської мови. В такому випадку не потрібно вносити заставну суму.
+                <br />Всю відповідальність за оренду автомобіля несе водій.
+                <br />Вас підберуть в зазначеному місці і безпечно доставлять куди потрібно.
+            </p>
+        </li>
+        <li>
+            <p class="expandable-text" onclick="toggleText(6)" style="cursor: pointer; color:blueviolet; font-size: 30px;">Відміна бронювання</p>
+            <p class="hidden-text" id="hiddenText6" style="display:none; color:blue; font-size: 20px;">
+                     Ви можете безкоштовно змінити/скасувати своє бронювання.               
+            </p>
+        </li>
+    </ul>
+</div>
+
+<script>
+    function toggleText(index) {
+        var hiddenText = document.getElementById("hiddenText" + index);
+        if (hiddenText.style.display === "none") {
+            hiddenText.style.display = "block";
+        } else {
+            hiddenText.style.display = "none";
+        }
+    }
+</script>
+
