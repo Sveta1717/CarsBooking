@@ -1,0 +1,30 @@
+﻿@model CarBooking.Models.Car.BookingIndexViewModel
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<body class="reg" style="background-image:none">
+    <div>
+        <h1 class="display-4">Результати пошуку</h1>
+    </div>
+</body>
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+@foreach (var brand in Model.Brands)
+{
+    <h3>@brand.Title</h3>
+    @foreach (var car in Model.Cars.Where(c => c.Brand_id == brand.Id))
+    {
+        <div class="car-item">
+            <img src="/uploads/@car.ImageUri" class="card-img-top" alt="Image">
+            <p>@car.Title</p>
+            <p>@car.Description</p>
+            <p>Ціна за добу: @car.Price_per_day  грн.</p>   
+                       
+        </div>
+    }
+}
+</div>
+
+

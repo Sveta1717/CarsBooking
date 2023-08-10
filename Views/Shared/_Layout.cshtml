@@ -31,15 +31,24 @@
                         </li> 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="RentTerms">Умови оренди</a>
-                        </li>
+                        </li>                       
                         <li class="nav-item">
                             <a href="https://bank.gov.ua/ua/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi"
                                class="nav-link text-dark">
                                 <span class="flag-icon flag-icon-ua"></span> Допомогти ЗСУ
                             </a>
                         </li>
-
-                    </ul>
+                        <li class="nav-item" style="margin-left:20px">
+                            <form asp-controller="Search" asp-action="Index">
+                            <div class="input-group mb-3">
+                                    <input type="text" class="form-control bg-yellow" id="search" name="search" placeholder="Bведить марку авто"
+                                       aria-describedby="search-addon">                               
+                                <button class="btn btn-outline-warning" type="submit"><i class="bi bi-search icon-yellow"></i></button>
+                            </div>
+                            </form>
+                        </li>
+                    </ul>    
+                    
 
                     @if (Context.User.Identity?.IsAuthenticated == true)
                     {
@@ -71,9 +80,10 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
+    </div>  
 
-    <footer class="border-top footer text-muted bg-light">
+    <footer class="border-top footer text-muted bg-light">  
+       
 
         <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
             <div class="modal-dialog">

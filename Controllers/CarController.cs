@@ -43,16 +43,16 @@ namespace CarBooking.Controllers
         {
             String errorMessage = _ValidateModel(model);
             if (errorMessage != String.Empty)
-            {                
+            {
                 HttpContext.Session.SetString("AddMessage", errorMessage);
             }
             else
-            {                
+            {
                 HttpContext.Session.SetString("AddMessage", "Додано успішно!");
             }
 
             return RedirectToAction("AdminSignUp", "Home");
-           
+
         }
 
         private String _ValidateModel(BookingIndexFormModel? model)
@@ -96,9 +96,9 @@ namespace CarBooking.Controllers
                 Brand_id = model.BrandId,
                 Title = model.Title,
                 Description = model.Description,
-                CreateDt = DateTime.Now,              
-                Price_per_day = model.Price_per_day,                
-                ImageUri = newName                
+                CreateDt = DateTime.Now,
+                Price_per_day = model.Price_per_day,
+                ImageUri = newName
             });
 
             _dataContext.SaveChanges();

@@ -29,7 +29,7 @@ namespace CarBooking.Controllers
         {
             return View();
         }
-
+       
         public ViewResult Services()
         {           
             ViewData["obj"] = _hashService.GetHashCode();
@@ -75,6 +75,7 @@ namespace CarBooking.Controllers
         {
             return View();
         }
+
 
         public IActionResult PersonalArea()
         {
