@@ -1,9 +1,11 @@
 using CarBooking.Data;
 using CarBooking.Services.Hash;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IHashService, Md5HashService>();
+builder.Services.AddHttpContextAccessor();
+
 
 // реєстрація Data Context
 builder.Services.AddDbContext<DataContext>(options =>
@@ -38,6 +42,9 @@ builder.Services.AddSession(options =>
 });
 #endregion
 
+// підтримка локалізації
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,6 +62,19 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Налаштування локалізації
+var supportedCultures = new[]
+{
+    new CultureInfo("en-US"),
+    new CultureInfo("uk-UA"),    
+};
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en-US"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
+
 app.UseSession();
 app.UseSessionAuth();
 
@@ -62,5 +82,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
 app.Run();
+
+

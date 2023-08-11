@@ -1,6 +1,12 @@
-﻿@using System.Security.Claims;
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<HomeController> Localizer
+@using CarBooking.Controllers
+@using System.Security.Claims;
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,30 +30,46 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">ГОЛОВНА</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["ГОЛОВНА"]</a>
                         </li>   
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Index">Автопарк</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Index">@Localizer["Автопарк"]</a>
                         </li> 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="RentTerms">Умови оренди</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="RentTerms">@Localizer["Умови оренди"]</a>
                         </li>                       
                         <li class="nav-item">
                             <a href="https://bank.gov.ua/ua/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi"
                                class="nav-link text-dark">
-                                <span class="flag-icon flag-icon-ua"></span> Допомогти ЗСУ
+                                <span class="flag-icon flag-icon-ua"></span> @Localizer["Допомога ЗСУ"]
                             </a>
                         </li>
                         <li class="nav-item" style="margin-left:20px">
                             <form asp-controller="Search" asp-action="Index">
                             <div class="input-group mb-3">
-                                    <input type="text" class="form-control bg-yellow" id="search" name="search" placeholder="Bведить марку авто"
+                                    <input type="text" class="form-control bg-yellow" id="search" name="search" placeholder="Bведіть марку авто"
                                        aria-describedby="search-addon">                               
                                 <button class="btn btn-outline-warning" type="submit"><i class="bi bi-search icon-yellow"></i></button>
                             </div>
                             </form>
                         </li>
-                    </ul>    
+                    </ul>
+                    @{
+                        var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+                        var urlPath = HttpContextAccessor.HttpContext.Request.Path;
+
+                        // Перевірка наявності культури в URL
+                        var isUkrainianCulture = urlPath.Value.Contains("/uk/");
+                        var isEnglishCulture = urlPath.Value.Contains("/en/");
+                    }
+
+                    <a class="btn btn-light" asp-controller="Home" asp-action="SetCulture" asp-route-culture="uk" asp-route-returnUrl="@Context.Request.Path">
+                        <span class="flag-icon flag-icon-ua"></span>
+                    </a>
+                    <a class="btn btn-light" asp-controller="Home" asp-action="SetCulture" asp-route-culture="en" asp-route-returnUrl="@Context.Request.Path">
+                        <span class="flag-icon flag-icon-us"></span>
+                    </a>
+
                     
 
                     @if (Context.User.Identity?.IsAuthenticated == true)
@@ -131,13 +153,37 @@
                 <li class="list-inline-item">
                     <a href="/Home/Privacy">Контакти</a>
                 </li>
-            </ul>
+            </ul>  
         </div>
     </footer>
    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('change-language-uk').addEventListener('click', function () {
+                changeLanguage('uk');
+            });
+
+            document.getElementById('change-language-en').addEventListener('click', function () {
+                changeLanguage('en');
+            });
+
+            function changeLanguage(culture) {
+                fetch(`/Home/SetCulture?culture=${culture}&returnUrl=${encodeURIComponent(location.pathname)}`, {
+                    method: 'POST'
+                }).then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                }).catch(error => {
+                    console.error('Error changing language:', error);
+                });
+            }
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
