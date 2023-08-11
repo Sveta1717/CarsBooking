@@ -20,11 +20,66 @@
             <img src="/uploads/@car.ImageUri" class="card-img-top" alt="Image">
             <p>@car.Title</p>
             <p>@car.Description</p>
-            <p>Ціна за добу: @car.Price_per_day  грн.</p>   
-                       
+            <p>Ціна за добу: @car.Price_per_day  грн.</p>
+                <a href="#" class="btn btn-warning" onclick="showForm()">Замовити</a>
         </div>
     }
 }
 </div>
+
+<div id="orderForm" style="display: none;">
+    <form>
+        <div class="mb-3">
+            <label for="name" class="form-label">Ім'я</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="surname" class="form-label">Прізвище</label>
+            <input type="text" class="form-control" id="surname" name="surname" required>
+        </div>
+        <div class="mb-3">
+            <label for="rentalDate" class="form-label">Дата оренди</label>
+            <input type="date" class="form-control" id="rentalDate" name="rentalDate" required>
+        </div>
+        <div class="mb-3">
+            <label for="rentalDays" class="form-label">Кількість днів оренди</label>
+            <input type="number" class="form-control" id="rentalDays" name="rentalDays" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Телефон</label>
+            <input type="tel" class="form-control" id="phone" name="phone" required>
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label">Коментар</label>
+            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Підтвердити замовлення</button>
+        <button type="button" class="btn btn-secondary" onclick="hideForm()">Скасувати</button>
+    </form>
+</div>
+
+
+<script>
+    function showForm() {
+        var carInfoList = document.getElementsByClassName("carInfo");
+        for (var i = 0; i < carInfoList.length; i++) {
+            carInfoList[i].style.display = "none";
+        }
+
+        var form = document.getElementById("orderForm");
+        form.style.display = "block";
+    }
+
+    function hideForm() {
+        var carInfoList = document.getElementsByClassName("carInfo");
+        for (var i = 0; i < carInfoList.length; i++) {
+            carInfoList[i].style.display = "block";
+        }
+
+        var form = document.getElementById("orderForm");
+        form.style.display = "none";
+    }
+</script>
 
 
